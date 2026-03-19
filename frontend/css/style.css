@@ -1,0 +1,507 @@
+/* ===================================
+   OpenClaw 直播网页 - 主样式
+   浅色卡通风格配色方案
+   固定 9:16 竖屏比例布局
+   =================================== */
+
+/* CSS 变量定义 */
+:root {
+    /* 背景色 - 极浅的暖白色，突出蓝色主题 */
+    --bg-primary: #FEFEFE;
+    --bg-secondary: #FDFDFD;
+    --bg-tertiary: #FAFAFA;
+    --bg-card: #FFFFFF;
+    
+    /* 文字颜色 - 深灰蓝色，与主题色协调 */
+    --text-primary: #1A202C;
+    --text-secondary: #4A5568;
+    --text-muted: #718096;
+    
+    /* 强调色 - 蓝色主题（#cdf1f6）为核心 */
+    --accent-blue: #CDF1F6;
+    --accent-blue-light: #E8F9FB;
+    --accent-blue-dark: #5BC2D6;
+    --accent-blue-deep: #3FA9BC;
+    --accent-blue-darker: #2D8A9C;
+    
+    /* 辅助强调色 - 柔和的暖色调 */
+    --accent-coral: #FF8B7B;
+    --accent-peach: #FFB8A3;
+    --accent-green: #86E8A8;
+    --accent-yellow: #FFE082;
+    --accent-orange: #FFAB76;
+    
+    /* 边框 - 浅蓝灰色，与主题色呼应 */
+    --border-color: #B8E0E8;
+    --border-radius: 20px;
+    --border-width: 3px;
+    
+    /* 阴影 - 蓝灰色调阴影 */
+    --shadow-inner: inset -2px -2px 8px rgba(205, 241, 246, 0.15);
+    --shadow-outer: 4px 4px 8px rgba(91, 194, 214, 0.12);
+    --shadow-sm: var(--shadow-outer);
+    --shadow-md: 6px 6px 12px rgba(91, 194, 214, 0.18);
+    --shadow-lg: 8px 8px 16px rgba(91, 194, 214, 0.22);
+    
+    /* 间距 */
+    --spacing-xs: 6px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 28px;
+    --spacing-xl: 36px;
+    
+    /* 字体 - 圆润卡通风格 */
+    --font-family: 'Fredoka', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", 
+                   "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 
+                   sans-serif;
+    --font-mono: 'Nunito', "Courier New", monospace;
+    
+    /* 直播画面比例 */
+    --live-aspect-ratio: 9 / 16;
+    
+    /* 背景动画 */
+    --bg-animation-duration: 8s;
+}
+
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--text-primary);
+    background: linear-gradient(
+        180deg,
+        var(--bg-primary) 0%,
+        var(--bg-secondary) 40%,
+        var(--bg-tertiary) 100%
+    );
+    background-attachment: fixed;
+}
+
+/* ===================================
+   背景层（填充浏览器剩余空间）
+   =================================== */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        var(--bg-primary) 0%,
+        var(--bg-secondary) 50%,
+        var(--bg-tertiary) 100%
+    );
+    z-index: -1;
+    
+    /* 添加蓝色主题的圆点背景效果 */
+    background-image: 
+        radial-gradient(circle at 20px 20px, rgba(205, 241, 246, 0.12) 2px, transparent 2px),
+        radial-gradient(circle at 60px 60px, rgba(91, 194, 214, 0.08) 2px, transparent 2px),
+        radial-gradient(circle at 100px 40px, rgba(63, 169, 188, 0.06) 2px, transparent 2px);
+    background-size: 120px 120px;
+    
+    /* 添加微妙的动画效果 */
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* ===================================
+   直播主容器（固定 9:16 比例）
+   =================================== */
+.live-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    width: calc(100vh * var(--live-aspect-ratio));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+    /* 添加边框效果，让直播区域更明显 */
+    border-left: 2px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
+    box-shadow: 
+        var(--shadow-md);
+}
+
+/* 当浏览器为宽屏时（宽度优先） */
+@media (max-aspect-ratio: 9/16) {
+    .live-container {
+        width: 100vw;
+        height: calc(100vw / var(--live-aspect-ratio));
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-left: 2px solid var(--border-color);
+        border-right: 2px solid var(--border-color);
+        border-top: none;
+        border-bottom: none;
+    }
+}
+
+/* 内部容器 */
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 14% 57% 26%;
+    padding: 12px 20px 60px;
+    gap: var(--spacing-sm);
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+/* ===================================
+   顶部思维导图区域
+   =================================== */
+.mindmap-section {
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-outer), var(--shadow-inner);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.mindmap-section:hover {
+    transform: translateY(-2px);
+}
+
+/* 区域标签 - 放在容器外部背景上 */
+.section-label {
+    position: absolute;
+    top: -26px;
+    left: var(--spacing-md);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 
+        2px 2px 0 var(--bg-primary),
+        -2px -2px 0 var(--bg-primary),
+        -2px 2px 0 var(--bg-primary),
+        2px -2px 0 var(--bg-primary),
+        0 0 10px var(--bg-primary);
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.mindmap-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.mindmap-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--text-secondary);
+    gap: var(--spacing-md);
+}
+
+/* 加载动画 - 蓝色主题 */
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--accent-blue-light);
+    border-top-color: var(--accent-blue);
+    border-right-color: var(--accent-blue-dark);
+    border-radius: 50%;
+    animation: spin 1s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===================================
+   中央内容区域（预留空白）
+   =================================== */
+.content-section {
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-outer), var(--shadow-inner);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.content-section:hover {
+    transform: translateY(-2px);
+}
+
+.content-section .section-label {
+    top: -26px;
+    left: var(--spacing-md);
+}
+
+.content-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    border: 3px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+}
+
+/* ===================================
+   底部状态区域
+   =================================== */
+.status-section {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+}
+
+/* 左侧状态显示 */
+.status-display {
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    box-shadow: var(--shadow-outer), var(--shadow-inner);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.status-display:hover {
+    transform: translateY(-2px);
+}
+
+.status-display .section-label {
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.status-gif-container {
+    width: 85%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-radius: 50%;
+    overflow: hidden;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+.status-gif {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: bounce 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+    border: 2px solid var(--border-color);
+}
+
+.indicator-dot.thinking {
+    background-color: var(--accent-blue);
+}
+
+.indicator-dot.typing {
+    background-color: var(--accent-blue-dark);
+}
+
+.indicator-dot.waiting {
+    background-color: var(--accent-blue-deep);
+}
+
+@keyframes bounce {
+    0%, 100% { 
+        transform: scale(1);
+    }
+    50% { 
+        transform: scale(1.2);
+    }
+}
+
+.indicator-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* 右侧思考日志 */
+.thought-logger {
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-outer), var(--shadow-inner);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.thought-logger:hover {
+    transform: translateY(-2px);
+}
+
+.thought-logger .section-label {
+    top: -26px;
+    left: var(--spacing-md);
+}
+
+.logger-container {
+    flex: 1;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    padding-right: 4px;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.logger-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+}
+
+/* 自定义滚动条 - 卡通风格 */
+.logger-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.logger-container::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+}
+
+.logger-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%);
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+}
+
+.logger-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--accent-blue-dark) 0%, var(--accent-blue-deep) 100%);
+}
+
+/* 日志条目样式 */
+.log-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 0;
+    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.log-time {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    font-weight: 500;
+}
+
+.log-icon {
+    display: none;
+}
+
+.log-message {
+    color: var(--text-primary);
+    word-break: break-word;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+/* 不同日志类型的颜色 */
+.log-entry.info .log-icon { color: var(--accent-blue-dark); }
+.log-entry.thinking .log-icon { color: var(--accent-blue); }
+.log-entry.success .log-icon { color: var(--accent-blue-deep); }
+.log-entry.warning .log-icon { color: var(--accent-orange); }
+.log-entry.error .log-icon { color: var(--accent-coral); }
+.log-entry.waiting .log-icon { color: var(--accent-blue-darker); }
+
+/* 初始日志特殊样式 */
+.log-entry.initial {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ===================================
+   比例适配说明
+   =================================== */
+/* 
+ * 布局策略：
+ * - 直播区域固定保持 9:16 竖屏比例
+ * - 高度优先：高度始终填满视口（100vh）
+ * - 水平居中：宽度按比例计算，左右自动留白
+ * - 小屏幕适配：当宽度过大时，切换为宽度基准，上下留白
+ *
+ * 浏览器控制台查看：
+ * - 左右留白：浏览器宽度 > 直播区域宽度
+ * - 上下留白：浏览器高度 < 直播区域高度（超宽屏）
+ */

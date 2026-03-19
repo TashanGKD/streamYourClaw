@@ -1,0 +1,82 @@
+/* ===================================
+   思维导图区域样式
+   =================================== */
+
+/* Mermaid 容器样式覆盖 */
+#mindmap-container .mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: var(--font-family);
+}
+
+/* Mermaid 节点样式 - 卡通风格 */
+#mindmap-container .mermaid .node {
+    rx: 16;
+    ry: 16;
+}
+
+#mindmap-container .mermaid .label {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+#mindmap-container .mermaid .node rect {
+    fill: var(--bg-card) !important;
+    stroke: var(--border-color) !important;
+    stroke-width: 3px;
+}
+
+/* 不同状态的节点颜色 */
+#mindmap-container .mermaid .node.completed rect {
+    stroke: var(--accent-green) !important;
+}
+
+#mindmap-container .mermaid .node.processing rect {
+    stroke: var(--accent-blue) !important;
+}
+
+#mindmap-container .mermaid .node.pending rect {
+    stroke: var(--text-muted) !important;
+}
+
+/* Mermaid 连线样式 - 卡通风格 */
+#mindmap-container .mermaid .edgePath .path {
+    stroke: var(--border-color) !important;
+    stroke-width: 3px;
+    stroke-linecap: round;
+}
+
+/* Mermaid 标签背景 */
+#mindmap-container .mermaid .label div {
+    color: var(--text-primary) !important;
+}
+
+/* 思维导图加载状态 */
+.mindmap-loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--text-secondary);
+}
+
+/* 思维导图错误状态 */
+.mindmap-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--accent-red);
+    gap: var(--spacing-sm);
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.mindmap-error .icon {
+    font-size: 2rem;
+}

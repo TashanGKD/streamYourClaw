@@ -1,0 +1,65 @@
+{
+  "root": [
+    {
+      "id": "task-1",
+      "title": "🚀 初始化项目",
+      "status": "completed",
+      "children": [
+        {
+          "id": "task-1-1",
+          "title": "创建项目结构",
+          "status": "completed"
+        },
+        {
+          "id": "task-1-2",
+          "title": "编写 HTML 骨架",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "task-2",
+      "title": "💻 开发中任务",
+      "status": "processing",
+      "children": [
+        {
+          "id": "task-2-1",
+          "title": "实现 CSS 样式",
+          "status": "pending"
+        },
+        {
+          "id": "task-2-2",
+          "title": "实现状态管理",
+          "status": "pending"
+        },
+        {
+          "id": "task-2-3",
+          "title": "实现思考日志",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "task-3",
+      "title": "📋 待办任务",
+      "status": "pending",
+      "children": [
+        {
+          "id": "task-3-1",
+          "title": "集成思维导图",
+          "status": "pending"
+        },
+        {
+          "id": "task-3-2",
+          "title": "编写 Mock Agent",
+          "status": "pending"
+        },
+        {
+          "id": "task-3-3",
+          "title": "配置热更新",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

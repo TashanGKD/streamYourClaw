@@ -1,0 +1,171 @@
+/* ===================================
+   状态栏区域样式
+   =================================== */
+
+/* 状态指示器动画 */
+.status-indicator {
+    transition: all 0.3s ease;
+}
+
+.status-indicator .indicator-dot {
+    transition: background-color 0.3s ease;
+}
+
+/* 视频容器样式 */
+.status-gif-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* 视频样式 */
+.status-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scaleX(-1); /* 镜像翻转 */
+    border-radius: 12px;
+}
+
+/* Emoji 降级方案样式 */
+.status-emoji-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.emoji-animation {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji-icon {
+    font-size: 80px;
+    animation: emojiFloat 3s ease-in-out infinite;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(212, 165, 116, 0.3));
+}
+
+/* 思考气泡动画 */
+.emoji-bubbles {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+}
+
+.bubble {
+    position: absolute;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%);
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: bubbleFloat 2s ease-in-out infinite;
+    box-shadow: 0 2px 4px rgba(91, 194, 214, 0.3);
+}
+
+.bubble-1 {
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 0;
+    animation-delay: 0s;
+}
+
+.bubble-2 {
+    width: 18px;
+    height: 18px;
+    top: 15px;
+    left: 20px;
+    animation-delay: 0.3s;
+}
+
+.bubble-3 {
+    width: 10px;
+    height: 10px;
+    top: 30px;
+    left: 35px;
+    animation-delay: 0.6s;
+}
+
+@keyframes emojiFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.05);
+    }
+}
+
+@keyframes bubbleFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-10px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 加载状态提示 */
+.status-gif-container::after {
+    content: '加载中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+/* 状态切换过渡效果 */
+.status-video.fade-out {
+    opacity: 0;
+}
+
+.status-video.fade-in {
+    opacity: 1;
+}
+
+/* 状态栏响应式调整 */
+@media (max-width: 400px) {
+    .status-title {
+        font-size: 0.85rem;
+    }
+    
+    .status-indicator {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .indicator-text {
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "description": "OpenClaw 状态视频配置",
+  "states": {
+    "typing": {
+      "name": "输入中",
+      "description": "正在向 openclaw 输入任务",
+      "videos": [
+        {
+          "file": "typing_none.mp4",
+          "duration": 3000,
+          "weight": 1.0
+        },
+        {
+          "file": "typing_thinking.mp4",
+          "duration": 3000,
+          "weight": 0.9
+        },
+        {
+          "file": "typing_drinking.mp4",
+          "duration": 3000,
+          "weight": 0.8
+        }
+      ],
+      "indicatorColor": "#5BC2D6",
+      "fallback": "✏️"
+    },
+    "waiting": {
+      "name": "等待中",
+      "description": "盯着显示器等待 openclaw 的结果",
+      "videos": [
+        {
+          "file": "thinking.mp4",
+          "duration": 4000,
+          "weight": 1.0
+        }
+      ],
+      "indicatorColor": "#3FA9BC",
+      "fallback": "⏳"
+    },
+    "thinking": {
+      "name": "思考中",
+      "description": "单手摸下巴思考中",
+      "videos": [
+        {
+          "file": "thinking.mp4",
+          "duration": 3500,
+          "weight": 1.0
+        }
+      ],
+      "indicatorColor": "#CDF1F6",
+      "fallback": "💭"
+    }
+  },
+  "settings": {
+    "autoPlay": true,
+    "loop": true,
+    "muted": true,
+    "playsInline": true,
+    "preload": "auto",
+    "randomizeOnStateChange": true,
+    "crossfadeDuration": 300,
+    "defaultDuration": 3000
+  },
+  "videoConfig": {
+    "preferredFormat": "mp4",
+    "fallbackFormat": "webm",
+    "maxRetries": 3,
+    "retryDelay": 500
+  }
+}
